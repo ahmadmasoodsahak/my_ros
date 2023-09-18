@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ms_ubn/catkin_ws/src/ros_arduplane/build/devel/setup.sh

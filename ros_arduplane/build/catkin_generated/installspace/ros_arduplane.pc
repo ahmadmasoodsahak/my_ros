@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: ros_arduplane
+Description: Description of ros_arduplane
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: rospy roscpp std_msgs message_runtime

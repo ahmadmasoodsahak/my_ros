@@ -1,0 +1,1 @@
+/usr/lib/ccache/g++ -fPIC -g  -shared -Wl,-soname,libgtest.so -o libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o  -L/home/ms_ubn/catkin_ws/src/ros_arduplane/build/gtest/googlemock/gtest/src -Wl,-rpath,/home/ms_ubn/catkin_ws/src/ros_arduplane/build/gtest/googlemock/gtest/src -lpthread 

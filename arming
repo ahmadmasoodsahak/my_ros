@@ -1,0 +1,22 @@
+1 terminal: open gazebo.
+	command: gazebo --verbose ~/ardupilot_gazebo/worlds/iris_arducopter_runway.world
+
+2 terminal: open sitl and conneting to gazebo.
+	commnad: sim_vehicle.py -v ArduCopter -f gazebo-iris --console
+
+3 terminal: open mavros.
+	command: roslaunch mavros apm.launch fcu_url:="udp://127.0.0.1:14551@14555"
+
+4 terminal: run the custom arming code.
+	commnad: rosrun ros_arduplane ilk_arming_code
+
+
+
+
+
+
+bonus:
+"mavproxy.py" "--master" "tcp:127.0.0.1:5760" "--sitl" "127.0.0.1:5501" "--out" "127.0.0.1:14550" "--out" "127.0.0.1:14551" "--map" "--console"
+
+
+ahmadmasoodsahak

@@ -1,0 +1,132 @@
+    ROS_INFO("Team NO: %i", teamNo);
+	ROS_INFO("Latitude: %f", lat);
+    ROS_INFO("Longitude: %f", lng);
+    ROS_INFO("Altitude: %i", alt);
+	ROS_INFO("Pitch: %i", pitch_degrees);
+    ROS_INFO("Yaw: %i", yaw_degrees);
+    ROS_INFO("Roll: %i", roll_degrees);
+	ROS_INFO("Speed: %i", speed);
+	ROS_INFO("Battery: %i", bat);
+	ROS_INFO("Automatic: %i", automatic);
+	ROS_INFO("Locking: %i", locking);
+	ROS_INFO("Target Center X: %i", target_center_X);
+	ROS_INFO("Target Center Y: %i", target_center_Y);
+	ROS_INFO("Target Width: %i", target_width);
+	ROS_INFO("Target Height: %i", target_height);
+	ROS_INFO("GPS Time:");
+	ROS_INFO("Hour: %02d", hour);
+	ROS_INFO("Minute: %02d:", minute);
+	ROS_INFO("Second: %02d", second);
+	ROS_INFO("MilliSecond: %03d", millisecond);
+
+
+
+	// Verileri JSON formatında bir string olarak döndür.
+  	std::string json_data = "{\n";
+  	json_data += "  \"takim_numarasi\": " + std::to_string(teamNo) + ",\n";
+  	json_data += "  \"iha_enlem\": " + std::to_string(lat) + ",\n";
+  	json_data += "  \"iha_boylam\": " + std::to_string(lng) + ",\n";
+  	json_data += "  \"iha_irtifa\": " + std::to_string(alt) + ",\n";
+  	json_data += "  \"iha_dikilme\": " + std::to_string(pitch_degrees) + ",\n";
+  	json_data += "  \"iha_yonelme\": " + std::to_string(yaw_degrees) + ",\n";
+  	json_data += "  \"iha_yatis\": " + std::to_string(roll_degrees) + ",\n";
+  	json_data += "  \"iha_hiz\": " + std::to_string(speed) + ",\n";
+  	json_data += "  \"iha_batarya\": " + std::to_string(bat) + ",\n";
+  	json_data += "  \"iha_otonom\": " + std::to_string(automatic) + ",\n";
+  	json_data += "  \"iha_kilitlenme\": " + std::to_string(locking) + ",\n";
+  	json_data += "  \"hedef_merkez_X\": " + std::to_string(target_center_X) + ",\n";
+  	json_data += "  \"hedef_merkez_Y\": " + std::to_string(target_center_Y) + ",\n";
+  	json_data += "  \"hedef_genislik\": " + std::to_string(target_width) + ",\n";
+  	json_data += "  \"hedef_yukseklik\": " + std::to_string(target_height) + ",\n";
+  	json_data += "  \"gps_saati\": {\n";
+  	json_data += "\t\"saat\": " + std::to_string(hour) + ",\n";
+  	json_data += "\t\"dakika\": " + std::to_string(minute) + ",\n";
+  	json_data += "\t\"saniye\": " + std::to_string(second) + ",\n";
+  	json_data += "\t\"milisaniye\": " + std::to_string(millisecond) + "\n";
+  	json_data += "  }\n";
+  	json_data += "}";
+
+  	// Verileri ROS_INFO() kullanarak ekrana yazdır.
+  	ROS_INFO("%s", json_data.c_str());
+
+
+
+
+	Json::Value json_data;
+  	json_data["takim_numarasi"] = teamNo;
+  	json_data["iha_enlem"] = lat;
+  	json_data["iha_boylam"] = lng;
+  	json_data["iha_irtifa"] = alt;
+  	json_data["iha_dikilme"] = pitch_degrees;
+  	json_data["iha_yonelme"] = yaw_degrees;
+  	json_data["iha_yatis"] = roll_degrees;
+  	json_data["iha_hiz"] = speed;
+  	json_data["iha_batarya"] = bat;
+  	json_data["iha_otonom"] = automatic;
+  	json_data["iha_kilitlenme"] = locking;
+  	json_data["hedef_merkez_X"] = target_center_X;
+  	json_data["hedef_merkez_Y"] = target_center_Y;
+  	json_data["hedef_genislik"] = target_width;
+  	json_data["hedef_yukseklik"] = target_height;
+
+  	// `gps_saati` değerini bir JSON object olarak ekle.
+  	Json::Value gps_saati;
+  	gps_saati["saat"] = hour;
+  	gps_saati["dakika"] = minute;
+  	gps_saati["saniye"] = second;
+  	gps_saati["milisaniye"] = millisecond;
+  	json_data["gps_saati"] = gps_saati;
+
+  	// Verileri ROS_INFO() kullanarak ekrana yazdır.
+  	ROS_INFO("%s", json_data.toStyledString().c_str());
+
+
+	std::vector<std::pair<std::string, Json::Value>> json_data_vector;
+
+void add_json_data(const std::string& key, const Json::Value& value) {
+    json_data_vector.push_back(std::make_pair(key, value));
+}
+
+void print_json_data() {
+    Json::Value json_data;
+
+    // Vektördeki verileri JSON nesnesine ekleyin
+    for (const auto& pair : json_data_vector) {
+        json_data[pair.first] = pair.second;
+    }
+
+    // JSON verilerini ekrana yazdırın
+    ROS_INFO("%s", json_data.toStyledString().c_str());
+}
+
+
+void get_all_data(){
+    json_data_vector.clear(); // Önceki verileri temizleyin
+
+    add_json_data("takim_numarasi", teamNo);
+    add_json_data("iha_enlem", lat);
+    add_json_data("iha_boylam", lng);
+    add_json_data("iha_irtifa", alt);
+    add_json_data("iha_dikilme", pitch_degrees);
+    add_json_data("iha_yonelme", yaw_degrees);
+    add_json_data("iha_yatis", roll_degrees);
+    add_json_data("iha_hiz", speed);
+    add_json_data("iha_batarya", bat);
+    add_json_data("iha_otonom", automatic);
+    add_json_data("iha_kilitlenme", locking);
+    add_json_data("hedef_merkez_X", target_center_X);
+    add_json_data("hedef_merkez_Y", target_center_Y);
+    add_json_data("hedef_genislik", target_width);
+    add_json_data("hedef_yukseklik", target_height);
+
+    // `gps_saati` değerini bir JSON object olarak ekle.
+    Json::Value gps_saati;
+    gps_saati["saat"] = hour;
+    gps_saati["dakika"] = minute;
+    gps_saati["saniye"] = second;
+    gps_saati["milisaniye"] = millisecond;
+    add_json_data("gps_saati", gps_saati);
+
+    // JSON verilerini ekrana yazdırın
+    print_json_data();
+}
